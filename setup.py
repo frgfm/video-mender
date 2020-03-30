@@ -39,11 +39,8 @@ write_version_file()
 with open('README.md') as f:
     readme = f.read()
 
-requirements = [
-    'numpy>=1.14.0',
-    'opencv-python==3.4.5.20',
-    'scipy>=1.2.0'
-]
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
 
 setup(
     # Metadata

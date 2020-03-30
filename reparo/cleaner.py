@@ -9,7 +9,7 @@ import numpy as np
 import cv2
 
 
-def filter_frames(frames, method=cv2.HISTCMP_CORREL, target_size=(64, 64), threshold=0.85):
+def filter_frames(frames, method=cv2.HISTCMP_CORREL, target_size=(64, 64), threshold=0.65):
     """Filter noisy frames out
 
     Args:
@@ -33,9 +33,9 @@ def filter_frames(frames, method=cv2.HISTCMP_CORREL, target_size=(64, 64), thres
     med_hist = np.median(histograms, axis=0)
 
     filtered_frames = []
-    # loop over the index
+    # Compare all histograms to the median one
     for idx, hist in enumerate(histograms):
-        # compute the distance between the two histograms
+        # Only keep frames with relatively high correlation
         if cv2.compareHist(med_hist, hist, method) > threshold:
             filtered_frames.append(frames[idx])
 
